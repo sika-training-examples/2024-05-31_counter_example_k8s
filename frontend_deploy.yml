@@ -17,13 +17,17 @@ spec:
           image: ghcr.io/ondrejsika/counter-frontend
           ports:
             - containerPort: 3000
-          env:
-            - name: API_ORIGIN
-              value: http://backend
-            - name: FONT_COLOR
-              value: '#D40511'
-            - name: BACKGROUND_COLOR
-              value: '#FFCC00'
+          envFrom:
+            - configMapRef:
+                name: counter-config
+          startupProbe:
+            httpGet:
+              path: /api/livez
+              port: 3000
+          livenessProbe:
+            httpGet:
+              path: /api/livez
+              port: 3000
           resources:
             requests:
               cpu: 40m

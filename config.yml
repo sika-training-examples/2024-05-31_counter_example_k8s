@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: counter-config
+data:
+  # Backend
+  REDIS: redis
+  EXTRA_TEXT: Ondrej
+
+  # Frontend
+  API_ORIGIN: http://backend
+  FONT_COLOR: '#D40511'
+  BACKGROUND_COLOR: '#FFCC00'

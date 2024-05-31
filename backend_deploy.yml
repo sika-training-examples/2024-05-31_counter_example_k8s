@@ -17,9 +17,17 @@ spec:
           image: ondrejsika/counter
           ports:
             - containerPort: 80
-          env:
-            - name: REDIS
-              value: redis
+          envFrom:
+            - configMapRef:
+                name: counter-config
+          startupProbe:
+            httpGet:
+              path: /readyz
+              port: 80
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 80
           resources:
             requests:
               cpu: 20m
