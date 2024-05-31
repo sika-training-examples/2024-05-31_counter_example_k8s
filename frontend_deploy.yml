@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/ondrejsika/counter-frontend
+          ports:
+            - containerPort: 3000
+          env:
+            - name: API_ORIGIN
+              value: http://backend
+            - name: FONT_COLOR
+              value: '#D40511'
+            - name: BACKGROUND_COLOR
+              value: '#FFCC00'
+          resources:
+            requests:
+              cpu: 40m
+              memory: 80Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
